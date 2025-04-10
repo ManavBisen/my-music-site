@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Animated Music Gallery</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom right, #111, #222);
+      color: white;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 4rem;
+      margin-bottom: 40px;
+      transform: rotate(-2deg);
+      text-shadow: 0 0 10px #00ffe0, 0 0 20px #9f00ff;
+      animation: floatHeading 4s ease-in-out infinite;
+    }
+
+    @keyframes floatHeading {
+      0%, 100% {
+        transform: rotate(-2deg) translateY(0);
+      }
+      50% {
+        transform: rotate(-2deg) translateY(-10px);
+      }
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .box {
+      background: #1a1a1a;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      animation: floatBox 3s ease-in-out infinite;
+    }
+
+    @keyframes floatBox {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    .box img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      border-bottom: 3px solid #00ffe0;
+      filter: hue-rotate(30deg);
+      animation: colorShift 6s infinite linear;
+    }
+
+    .title {
+      margin-top: 10px;
+      font-size: 1.2rem;
+      color: #00ffe0;
+      text-shadow: 0 0 5px #9f00ff;
+    }
+
+    .play-button {
+      margin-top: 10px;
+      background: linear-gradient(45deg, #00ffe0, #9f00ff);
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 0 10px #00ffe0;
+      animation: bounce 2s ease-in-out infinite;
+      transition: transform 0.2s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #9f00ff;
+    }
+
+    audio {
+      display: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes colorShift {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Microphone</h1>
+
+  <div class="grid">
+    <!-- Box Template -->
+    <!-- Repeat 8 times with respective image/audio -->
+    <!-- Box 1 -->
+    <div class="box">
+      <img src="image1.jpg" alt="Music 1">
+      <div class="title">Music 1</div>
+      <button class="play-button" onclick="playAudio(0)">▶️ Play</button>
+      <audio id="audio0" src="audio1.mp3"></audio>
+    </div>
+
+    <!-- Box 2 -->
+    <div class="box">
+      <img src="image2.jpg" alt="Music 2">
+      <div class="title">Music 2</div>
+      <button class="play-button" onclick="playAudio(1)">▶️ Play</button>
+      <audio id="audio1" src="audio2.mp3"></audio>
+    </div>
+
+    <!-- Box 3 -->
+    <div class="box">
+      <img src="image3.jpg" alt="Music 3">
+      <div class="title">Music 3</div>
+      <button class="play-button" onclick="playAudio(2)">▶️ Play</button>
+      <audio id="audio2" src="audio3.mp3"></audio>
+    </div>
+
+    <!-- Box 4 -->
+    <div class="box">
+      <img src="image4.jpg" alt="Music 4">
+      <div class="title">Music 4</div>
+      <button class="play-button" onclick="playAudio(3)">▶️ Play</button>
+      <audio id="audio3" src="audio4.mp3"></audio>
+    </div>
+
+    <!-- Box 5 -->
+    <div class="box">
+      <img src="image5.jpg" alt="Music 5">
+      <div class="title">Music 5</div>
+      <button class="play-button" onclick="playAudio(4)">▶️ Play</button>
+      <audio id="audio4" src="audio5.mp3"></audio>
+    </div>
+
+    <!-- Box 6 -->
+    <div class="box">
+      <img src="image6.jpg" alt="Music 6">
+      <div class="title">Music 6</div>
+      <button class="play-button" onclick="playAudio(5)">▶️ Play</button>
+      <audio id="audio5" src="audio6.mp3"></audio>
+    </div>
+
+    <!-- Box 7 -->
+    <div class="box">
+      <img src="image7.jpg" alt="Music 7">
+      <div class="title">Music 7</div>
+      <button class="play-button" onclick="playAudio(6)">▶️ Play</button>
+      <audio id="audio6" src="audio7.mp3"></audio>
+    </div>
+
+    <!-- Box 8 -->
+    <div class="box">
+      <img src="image8.jpg" alt="Music 8">
+      <div class="title">Music 8</div>
+      <button class="play-button" onclick="playAudio(7)">▶️ Play</button>
+      <audio id="audio7" src="audio8.mp3"></audio>
+    </div>
+  </div>
+
+  <script>
+    let currentAudio = null;
+
+    function playAudio(index) {
+      const audio = document.getElementById(`audio${index}`);
+
+      if (currentAudio && currentAudio !== audio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+      }
+
+      if (audio.paused) {
+        audio.play();
+        currentAudio = audio;
+      } else {
+        audio.pause();
+      }
+    }
+  </script>
+
+</body>
+</html>
